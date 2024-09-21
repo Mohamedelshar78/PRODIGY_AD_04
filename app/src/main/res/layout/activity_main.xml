@@ -178,6 +178,7 @@
         app:backgroundTint="@null"
         android:layout_marginVertical="40dp"
         android:text="RePlaye"
+        android:background="@drawable/buton"
         android:textSize="20sp"
         />
 

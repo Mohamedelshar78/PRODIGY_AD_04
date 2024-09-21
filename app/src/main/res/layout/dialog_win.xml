@@ -7,7 +7,6 @@
     android:background="@color/white"
     app:cardElevation="20dp"
     app:cardCornerRadius="20dp"
-    android:layout_margin="16dp"
     android:layout_gravity="center_horizontal"
 
     >
@@ -15,7 +14,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingHorizontal="40dp"
+        android:background="@color/white"
+        android:paddingHorizontal="50dp"
         >
 
         <TextView
@@ -68,7 +68,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="16dp"
-            android:background="@color/red"
+            android:background="@drawable/buton"
             android:text="play"
             app:backgroundTint="@null"
             app:layout_constraintBottom_toBottomOf="parent"

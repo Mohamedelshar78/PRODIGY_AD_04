@@ -143,14 +143,11 @@ class MainActivity : AppCompatActivity() {
         countDownTimer.cancel()
     }
 
-    var dialog: Dialog? = null
-    fun show_dialog(Desc: String?, isSuccess: Boolean) {
+    private var dialog: Dialog? = null
+    private fun show_dialog(Desc: String?, isSuccess: Boolean) {
         dialog = Dialog(this) // Initialize the dialog object
         dialog!!.setContentView(R.layout.dialog_win)
-        dialog!!.window!!.setLayout(
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT
-        )
+
         dialog!!.setCancelable(true)
         dialog!!.window!!.attributes.windowAnimations = androidx.appcompat.R.style.AlertDialog_AppCompat_Light
 
@@ -167,7 +164,10 @@ class MainActivity : AppCompatActivity() {
         if (isSuccess) image.setImageResource(R.drawable.success)
         else image.setImageResource(R.drawable.faild)
 
-        exit.setOnClickListener { dialog!!.dismiss() }
+        exit.setOnClickListener {
+            dialog!!.dismiss()
+            resetBoard()
+        }
 
         dialog!!.show()
     }
