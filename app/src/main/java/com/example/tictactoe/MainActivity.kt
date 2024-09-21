@@ -1,18 +1,15 @@
 package com.example.tictactoe
 
+import android.app.Dialog
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
-import android.widget.GridLayout
-import android.widget.RelativeLayout
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import java.util.Locale
 
 var remainingTimeInMillis = 10 * 1000 // Initial time: 5 minutes in milliseconds
 
@@ -53,6 +50,8 @@ class MainActivity : AppCompatActivity() {
         startCountdownTimer()
 
     }
+
+
     private fun onButtonClick(button: Button) {
 
         val index = buttons.indexOf(button)
@@ -72,6 +71,7 @@ class MainActivity : AppCompatActivity() {
         if (checkWin()) {
             Toast.makeText(this, "$player wins!", Toast.LENGTH_LONG).show()
             countDownTimer.cancel()
+            show_dialog("player $player whins!",true)
             return
         }
 
@@ -109,6 +109,10 @@ class MainActivity : AppCompatActivity() {
             board[i].fill(null)
         }
         player = firstPlayer
+        remainingTimeInMillis = 10 * 1000
+        timeTextView.text = "00:10"
+        countDownTimer.cancel()
+        startCountdownTimer()
     }
 
     private fun startCountdownTimer() {
@@ -132,5 +136,40 @@ class MainActivity : AppCompatActivity() {
         timeTextView.text = formattedTime
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        remainingTimeInMillis = 10 * 1000
+        timeTextView.text = "00:10"
+        countDownTimer.cancel()
+    }
+
+    var dialog: Dialog? = null
+    fun show_dialog(Desc: String?, isSuccess: Boolean) {
+        dialog = Dialog(this) // Initialize the dialog object
+        dialog!!.setContentView(R.layout.dialog_win)
+        dialog!!.window!!.setLayout(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+        dialog!!.setCancelable(true)
+        dialog!!.window!!.attributes.windowAnimations = androidx.appcompat.R.style.AlertDialog_AppCompat_Light
+
+        val desc =
+            dialog!!.findViewById<TextView>(R.id.popup_descreption) // Find TextView within the dialog layout
+        desc.text = Desc
+
+        val exit =
+            dialog!!.findViewById<Button>(R.id.Alertbutton) // Find Button within the dialog layout
+
+        val image =
+            dialog!!.findViewById<ImageView>(R.id.imageView) // Find ImageView within the dialog layout
+
+        if (isSuccess) image.setImageResource(R.drawable.success)
+        else image.setImageResource(R.drawable.faild)
+
+        exit.setOnClickListener { dialog!!.dismiss() }
+
+        dialog!!.show()
+    }
 
 }
